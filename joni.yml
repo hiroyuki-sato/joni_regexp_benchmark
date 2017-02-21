@@ -1,0 +1,19 @@
+in:
+  type: file
+  path_prefix: dummy_log.txt
+  parser:
+    type: joni_regexp
+    columns:
+      - { name: host, type: string }
+      - { name: user, type: string }
+#      - { name: time, type: timestamp, format: "%d/%b/%Y:%H:%M:%S %z" }
+      - { name: time, type: string }
+      - { name: method, type: string }
+      - { name: path, type: string }
+      - { name: code, type: string }
+      - { name: size, type: string }
+      - { name: referer, type: string }
+      - { name: agent, type: string }
+    format: '^(?<host>[^ ]*) [^ ]* (?<user>[^ ]*) \[(?<time>[^\]]*)\] "(?<method>\S+)(?: +(?<path>[^ ]*) +\S*)?" (?<code>[^ ]*) (?<size>[^ ]*)(?: "(?<referer>[^\"]*)" "(?<agent>[^\"]*)")?$' 
+out:
+  type: "null"
